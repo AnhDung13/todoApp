@@ -54,7 +54,7 @@ function Task({children}){
         <worksContext.Provider value={{handleAdd, handleDelete, handleSave, handleAction, handleEditChange, editingIndex, workArr, inputRef, editValue}}>
           {children}
         </worksContext.Provider>
-      );
+    );
 }
 function useTask(){
     return useContext(worksContext)
