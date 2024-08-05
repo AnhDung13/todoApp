@@ -10,18 +10,18 @@ function Task({children}){
 
     useEffect(()=>{
         setEditValue(workArr.map(({name})=>name))
-      },[workArr])
+        inputRef.current.value = "";
+        inputRef.current.focus();
+    },[workArr])
 
     const handleAdd = (e)=>{
-      e.preventDefault();
-      const value = inputRef.current.value.trim()
-     if(!value){
-        return
-     }
-     const newWorks = [...workArr, {name:value}]
-     addWorks(newWorks)
-     inputRef.current.value = "";
-     inputRef.current.focus();
+        e.preventDefault();
+        const value = inputRef.current.value.trim()
+        if(!value){
+            return
+        }
+        const newWorks = [...workArr, {name:value}]
+        addWorks(newWorks)
     }
 
     const handleDelete = (index)=>{
@@ -29,11 +29,8 @@ function Task({children}){
         addWorks(newWorks)
     }
 
-    const handleChange = (index) => {
-        setEditingIndex(index)
-    };
-
     const handleSave = (newValue)=>{
+        console.log(newValue);   
         const newWorks = newValue.map(value=>({name:value}))
         addWorks(newWorks)
         setEditingIndex(null)
@@ -42,7 +39,7 @@ function Task({children}){
     const handleAction =(e)=>{
         const index = Number(e.target.parentElement.parentElement.dataset.index);
         if(e.target.classList.contains('change-btn')){
-            handleChange(index)
+            setEditingIndex(index)
         }else if (e.target.classList.contains('delete-btn')){
             handleDelete(index)          
         }
@@ -52,13 +49,10 @@ function Task({children}){
         const value = e.target.value.trim()
         newValue[index] = value
         setEditValue(newValue)
-      };
-      
-      const handleEditSave = () => {
-        handleSave(editValue);
-      };
+    };
+
     return (
-        <worksContext.Provider value={{handleAdd, handleDelete, handleSave, handleAction, handleEditChange, handleEditSave, editingIndex, workArr, inputRef, editValue}}>
+        <worksContext.Provider value={{handleAdd, handleDelete, handleSave, handleAction, handleEditChange, editingIndex, workArr, inputRef, editValue}}>
           {children}
         </worksContext.Provider>
       );
