@@ -1,10 +1,11 @@
-import React, { useEffect, useState, useCallback, useRef} from "react"
+import React, { useState, useRef, useContext} from "react"
+import {worksContext} from "../App";
 import TodoListComponent from "./TodoList";
-
+import "bootstrap/dist/css/bootstrap.css"
 function TodoComponent(){
-    const storage = JSON.parse(localStorage.getItem('works'))
+    const works = useContext(worksContext)
     const inputRef = useRef(null);
-    const [workArr, addWorks] = useState(storage ?? []);
+    const [workArr, addWorks] = useState(works);
     const [editingIndex, setEditingIndex] = useState(null);
     const handleAdd = (e)=>{
       e.preventDefault();
@@ -14,7 +15,6 @@ function TodoComponent(){
      }
      const newWorks = [...workArr, {name:value}]
      addWorks(newWorks)
-     localStorage.setItem('works', JSON.stringify(newWorks))
      inputRef.current.value = "";
      inputRef.current.focus();
     }
@@ -22,7 +22,6 @@ function TodoComponent(){
     const handleDelete = (index)=>{
         const newWorks = workArr.filter((_,i)=> i !== index)
         addWorks(newWorks)
-        localStorage.setItem('works', JSON.stringify(newWorks))
     }
 
     const handleChange = (index) => {
@@ -32,7 +31,6 @@ function TodoComponent(){
     const handleSave = (newValue)=>{
         const newWorks = newValue.map(value=>({name:value}))
         addWorks(newWorks)
-        localStorage.setItem('works', JSON.stringify(newWorks))
         setEditingIndex(null)
     }
 
