@@ -1,27 +1,12 @@
 import React, { useEffect, useState} from "react"
+import { useTask } from "./context/Task";
 import "bootstrap/dist/css/bootstrap.css"
-function TodoListComponent({works, handleAction, editingIndex, handleSave}){
+function TodoList(){
+ const {  handleAction, editingIndex, workArr, handleEditChange, handleEditSave, editValue } = useTask()
 
-const [editValue, setEditValue] = useState(works.map(({name})=>name));
-
-useEffect(()=>{
-  setEditValue(works.map(({name})=>name))
-},[works])
-
-
-const handleEditChange = (e,index) => {
-  const newValue = [...editValue]
-  const value = e.target.value.trim()
-  newValue[index] = value
-  setEditValue(newValue)
-};
-
-const handleEditSave = () => {
-  handleSave(editValue);
-};
     return(
         <div className="todo-list" onClick={handleAction}>
-            {works.map(({name}, index)=>
+            {workArr.map(({name}, index)=>
                  index === editingIndex ? (
                   <div key={index} className="d-flex justify-content-between align-items-center gap-2 my-3 border px-2 py-2">
                     <input type="text" className="form-control" value={editValue[index]} onInput={(e)=>handleEditChange(e, index)} />
@@ -41,6 +26,4 @@ const handleEditSave = () => {
     );
 }
 
-export default TodoListComponent
-
-
+export default TodoList

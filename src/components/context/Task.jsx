@@ -1,12 +1,17 @@
-import React, { useState, useRef, useContext} from "react"
-import {worksContext} from "../App";
-import TodoListComponent from "./TodoList";
-import "bootstrap/dist/css/bootstrap.css"
-function TodoComponent(){
-    const works = useContext(worksContext)
+import { useContext, createContext, useRef, useState , useEffect} from "react";
+
+export const worksContext = createContext()
+
+function Task({children}){
     const inputRef = useRef(null);
-    const [workArr, addWorks] = useState(works);
+    const [workArr, addWorks] = useState([]);
     const [editingIndex, setEditingIndex] = useState(null);
+    const [editValue, setEditValue] = useState(workArr.map(({name})=>name));
+
+    useEffect(()=>{
+        setEditValue(workArr.map(({name})=>name))
+      },[workArr])
+
     const handleAdd = (e)=>{
       e.preventDefault();
       const value = inputRef.current.value.trim()
@@ -42,15 +47,23 @@ function TodoComponent(){
             handleDelete(index)          
         }
     }
-    return(
-      <div className="w-50 mx-auto bg-white p-4 ">
-        <form className="add-form d-flex gap-2 mb-4" onSubmit={handleAdd}>
-            <input ref={inputRef} type="text" className="form-control border border-primary"/>
-            <button type="submit" className="btn btn-success px-4 py-2" >Add</button>
-        </form>
-        <TodoListComponent works={workArr} handleAction={handleAction} editingIndex={editingIndex} handleSave={handleSave}/>
-      </div>
-    );
-  }
-  
-export default TodoComponent
+    const handleEditChange = (e,index) => {
+        const newValue = [...editValue]
+        const value = e.target.value.trim()
+        newValue[index] = value
+        setEditValue(newValue)
+      };
+      
+      const handleEditSave = () => {
+        handleSave(editValue);
+      };
+    return (
+        <worksContext.Provider value={{handleAdd, handleDelete, handleSave, handleAction, handleEditChange, handleEditSave, editingIndex, workArr, inputRef, editValue}}>
+          {children}
+        </worksContext.Provider>
+      );
+}
+function useTask(){
+    return useContext(worksContext)
+}
+export {Task, useTask}
