@@ -29,8 +29,7 @@ function Task({children}){
         addWorks(newWorks)
     }
 
-    const handleSave = (newValue)=>{
-        console.log(newValue);   
+    const handleSave = (newValue)=>{  
         const newWorks = newValue.map(value=>({name:value}))
         addWorks(newWorks)
         setEditingIndex(null)
