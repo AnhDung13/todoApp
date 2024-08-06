@@ -3,22 +3,22 @@ import { useTask } from "./context/Task";
 import "bootstrap/dist/css/bootstrap.css"
 
 function TodoList(){
- const { workArr, updateWorkArr} = useTask()
+ const { works, updateWorks} = useTask()
  const [editingIndex, setEditingIndex] = useState(null);
- const [editValue, setEditValue] = useState(workArr.map(({name})=>name));
+ const [editValue, setEditValue] = useState(works.map(({name})=>name));
 
  useEffect(()=>{
-  setEditValue(workArr.map(({name})=>name))
-},[workArr])
+  setEditValue(works.map(({name})=>name))
+},[works])
 
  const handleDelete = (index)=>{
-  const newWorks = workArr.filter((_,i)=> i !== index)
-  updateWorkArr(newWorks)
+  const newWorks = works.filter((_,i)=> i !== index)
+  updateWorks(newWorks)
 }
 
 const handleSave = (newValue)=>{  
   const newWorks = newValue.map(value=>({name:value}))
-  updateWorkArr(newWorks)
+  updateWorks(newWorks)
   setEditingIndex(null)
 }
 
@@ -30,7 +30,7 @@ const handleEditChange = (e,index) => {
 };
  return(
   <div className="todo-list">
-      {workArr.map(({name}, index)=>
+      {works.map(({name}, index)=>
            index === editingIndex ? (
             <div key={index} className="d-flex justify-content-between align-items-center gap-2 my-3 border px-2 py-2">
               <input type="text" className="form-control" value={editValue[index]} onInput={(e)=>handleEditChange(e, index)} />

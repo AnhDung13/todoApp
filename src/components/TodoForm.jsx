@@ -4,7 +4,7 @@ import "bootstrap/dist/css/bootstrap.css"
 import TodoList from "./TodoList";
 
 function TodoForm(){
-  const {updateWorkArr} = useTask();
+  const {updateWorks} = useTask();
 
   const inputRef = useRef(null);
 
@@ -14,7 +14,7 @@ function TodoForm(){
     if(!value){
         return
     }
-    updateWorkArr(prev=>[...prev, {name: value}])
+    updateWorks(prev=>[...prev, {name: value}])
     inputRef.current.value = "";
     inputRef.current.focus();
   }

@@ -1,17 +1,17 @@
-import { useContext, createContext, useRef, useState , useEffect} from "react";
+import { useContext, createContext, useState } from "react";
 
 export const worksContext = createContext()
 
 function TaskContext({children}){
     
-    const [workArr, setWorkArr] = useState([]);
+    const [works, setWorks] = useState([]);
     
-    const updateWorkArr = (value)=>{
-        setWorkArr(value)
+    const updateWorks = (value)=>{
+        setWorks(value)
     }
   
     return (
-        <worksContext.Provider value={ {workArr, updateWorkArr}}>
+        <worksContext.Provider value={ {works, updateWorks}}>
           {children}
         </worksContext.Provider>
     );
