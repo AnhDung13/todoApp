@@ -1,16 +1,12 @@
 import React, { createContext} from "react"
 import ReactDOM from "react-dom/client"
-import {  TaskContext } from "./components/context/Task";
-import TodoForm from "./components/TodoForm";
+import Todo from "./components/todo/Todo";
+import Login from "./components/Login";
+
 
 function App() { 
   return (
-    <TaskContext>
-       <div className="container py-3">    
-         <TodoForm/>
-       </div> 
-    </TaskContext>
-     
+    <Login/>
   );
 }
 

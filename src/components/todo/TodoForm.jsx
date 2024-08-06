@@ -1,8 +1,7 @@
 import React, {useRef} from "react"
-import { useTask } from "./context/Task";
-import "bootstrap/dist/css/bootstrap.css"
+import { useTask } from "../context/Task";
+import "bootstrap/dist/css/bootstrap.min.css"
 import TodoList from "./TodoList";
-
 function TodoForm(){
   const {updateWorks} = useTask();
 
