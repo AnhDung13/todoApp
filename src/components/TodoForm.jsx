@@ -1,10 +1,23 @@
-import React, { useState, useRef, useContext} from "react"
+import React, {useRef} from "react"
 import { useTask } from "./context/Task";
 import "bootstrap/dist/css/bootstrap.css"
 import TodoList from "./TodoList";
 
 function TodoForm(){
-    const { handleAdd, inputRef } = useTask();
+  const {updateWorkArr} = useTask();
+
+  const inputRef = useRef(null);
+
+  const handleAdd = (e)=>{
+    e.preventDefault();
+    const value = inputRef.current.value.trim()
+    if(!value){
+        return
+    }
+    updateWorkArr(prev=>[...prev, {name: value}])
+    inputRef.current.value = "";
+    inputRef.current.focus();
+  }
     return(
       <div className="w-50 mx-auto bg-white p-4 ">
         <form className="add-form d-flex gap-2 mb-4" onSubmit={handleAdd}>
