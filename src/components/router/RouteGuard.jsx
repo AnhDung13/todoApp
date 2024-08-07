@@ -14,7 +14,6 @@ const RouteGuard = ({children})=>{
             navigate('/todo', {replace:true})
         }else{
             navigate('/404', {replace:true})
-            location.pathname = '/404'
         }
     },[])
     return children
