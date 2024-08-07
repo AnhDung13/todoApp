@@ -1,17 +1,22 @@
-import React, { useEffect } from "react";
-import { useNavigate, useLocation, replace } from "react-router-dom";
+import React, { useEffect, useLayoutEffect } from "react";
+import { useNavigate ,useLocation} from "react-router-dom";
 import { useAuth } from "../context/Auth";
 
 const RouteGuard = ({children})=>{
     const {user} = useAuth();
     const navigate = useNavigate()
     const location = useLocation()
-    
     useEffect(()=>{
         if(!user){
             navigate('/', {replace:true})
         }
-    })
+        if(user && user.role === 1){
+            navigate('/todo', {replace:true})
+        }else{
+            navigate('/404', {replace:true})
+            location.pathname = '/404'
+        }
+    },[])
     return children
 }
 

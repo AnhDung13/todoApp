@@ -5,7 +5,7 @@ import Todo from "./components/todo/Todo";
 import Login from "./components/Login";
 import { AuthProvider } from "./components/context/Auth";
 import RouteGuard from "./components/router/RouteGuard";
-
+import Error from "./components/err/Err";
 
 function App() { 
   return (
@@ -13,6 +13,7 @@ function App() {
       <AuthProvider>
         <Routes>
           <Route path="/" element={<Login/>}/>
+          <Route path="/404" element={<Error/>}/>
           <Route path="/todo" element={<RouteGuard><Todo/></RouteGuard>}/>
         </Routes>
       </AuthProvider>
