@@ -1,12 +1,12 @@
 import TodoForm from "./TodoForm";
-import { TaskContext } from "../context/Task";
+import { TaskProvider } from "../context/Task";
 function Todo(){
     return(
-    <TaskContext>
+    <TaskProvider>
         <div className="container py-3">    
           <TodoForm/>
         </div> 
-    </TaskContext>
+    </TaskProvider>
     )
 }
 export default Todo

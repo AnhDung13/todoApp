@@ -1,8 +1,8 @@
 import { useContext, createContext, useState } from "react";
 
-export const worksContext = createContext()
+export const taskContext = createContext()
 
-function TaskContext({children}){
+function TaskProvider({children}){
     
     const [works, setWorks] = useState([]);
     
@@ -11,12 +11,12 @@ function TaskContext({children}){
     }
   
     return (
-        <worksContext.Provider value={ {works, updateWorks}}>
+        <taskContext.Provider value={ {works, updateWorks}}>
           {children}
-        </worksContext.Provider>
+        </taskContext.Provider>
     );
 }
 function useTask(){
-    return useContext(worksContext)
+    return useContext(taskContext)
 }
-export {TaskContext, useTask}
+export {TaskProvider, useTask}

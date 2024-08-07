@@ -1,4 +1,6 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "./context/Auth";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 const users = [
@@ -10,20 +12,28 @@ const users = [
     {
         role: 0,
         username: 'user',
-        password: 0
+        password: '0'
     }
 ]
 
 function Login(){
-
+    const {login} = useAuth();
+    const navigate = useNavigate()
     const handleLogin = (e)=>{
+        e.preventDefault()
+        const {username, password} = Object.fromEntries([...new FormData(e.target)])
+        const user = users.find(u => (u.username === username && u.password === password))
+        if(user){
+            login(user)
+            navigate('/todo')
+        }
         
     }
 
     return(
         <div className="container">
             <div className="d-flex align-items-center justify-content-center vh-100">
-                <form onSubmit={handleLogin} className="bg-white p-3 login-form" style={{width: 400+'px', height: 400+'px'}}>
+                <form onSubmit={handleLogin} className="bg-white p-3 login-form rounded" style={{width: 400+'px', height: 350+'px'}}>
                     <h1 className="text-center">Login</h1>
                     <div className="form-input d-flex flex-column gap-2 mb-3">
                         <label className="fw-bold">User Name</label>
