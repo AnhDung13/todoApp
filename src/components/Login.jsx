@@ -5,12 +5,12 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 const users = [
     {
-        role: 1,
+        role: 'admin',
         username: 'admin',
         password: '1'
     },
     {
-        role: 0,
+        role: 'user',
         username: 'user',
         password: '0'
     }

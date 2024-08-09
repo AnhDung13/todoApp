@@ -8,7 +8,7 @@ const AuthProvider = ({children})=>{
     const navigate = useNavigate()
     useEffect(()=>{
         if(user){
-            if(user.role === 1){
+            if(user.role === 'admin'){
                 navigate('/todo')
             }else{
                 navigate('/404')

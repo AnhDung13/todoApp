@@ -9,8 +9,9 @@ function TodoForm(){
   const [id, setId] = useState(1)
   const handleAdd = (e)=>{
     e.preventDefault();
-    if(!value){
-        return
+    if(!value.trim()){
+      setValue('')
+      return
     }
     updateWorks(prev=>[...prev, {id: id, name: value}])
     setValue('')

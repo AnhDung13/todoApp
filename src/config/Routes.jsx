@@ -9,12 +9,11 @@ const routes = [
     {
         path: '/todo',
         element: <Todo/>,
-        role: [1]
+        role: ['admin']
     },
     {
         path: '/404',
         element: <Error/>,
-        role: [0]
     }
 ]
 

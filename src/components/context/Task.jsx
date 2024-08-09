@@ -7,7 +7,6 @@ function TaskProvider({children}){
     const [works, setWorks] = useState([]);
     
     const updateWorks = (value)=>{
-        console.log(works);
         setWorks(value)
     }
   
