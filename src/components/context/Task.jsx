@@ -7,6 +7,7 @@ function TaskProvider({children}){
     const [works, setWorks] = useState([]);
     
     const updateWorks = (value)=>{
+        console.log(works);
         setWorks(value)
     }
   
@@ -16,7 +17,7 @@ function TaskProvider({children}){
         </taskContext.Provider>
     );
 }
-function useTask(){
+function useTaskContext(){
     return useContext(taskContext)
 }
-export {TaskProvider, useTask}
+export {TaskProvider, useTaskContext}

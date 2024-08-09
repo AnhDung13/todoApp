@@ -1,7 +1,7 @@
 import 'bootstrap/dist/css/bootstrap.min.css'
-import { useAuth } from '../context/Auth'
+import { useAuthContext } from '../context/Auth'
 const Error = ()=>{
-    const {logout} = useAuth()
+    const {logout} = useAuthContext()
     return(
         <div className='p-4 text-white text-center'>
             <h1 style={{fontSize: 10+'rem'}}>404</h1>

@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "./context/Auth";
+import { useAuthContext } from "./context/Auth";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 const users = [
@@ -17,7 +17,7 @@ const users = [
 ]
 
 function Login(){
-    const {login} = useAuth();
+    const {login} = useAuthContext();
     const navigate = useNavigate()
     const handleLogin = (e)=>{
         e.preventDefault()
@@ -27,7 +27,6 @@ function Login(){
             login(user)
             navigate('/todo')
         }
-        
     }
 
     return(

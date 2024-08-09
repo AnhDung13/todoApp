@@ -1,21 +1,20 @@
 import React, {useState, useEffect} from "react"
-import { useTask } from "../context/Task";
+import { useTaskContext } from "../context/Task";
 import "bootstrap/dist/css/bootstrap.min.css"
 
 function TodoList(){
- const { works, updateWorks} = useTask()
+ const { works, updateWorks} = useTaskContext()
  const [editingIndex, setEditingIndex] = useState(null);
- const [editValue, setEditValue] = useState(works.map(({name})=>name));
+ const [editValue, setEditValue] = useState(works);
 
  useEffect(()=>{
   setEditValue(works.map(({name})=>name))
 },[works])
 
- const handleDelete = (index)=>{
-  const newWorks = works.filter((_,i)=> i !== index)
+ const handleDelete = (deleteId)=>{
+  const newWorks = works.find(({id})=> id !== deleteId)
   updateWorks(newWorks)
 }
-
 const handleSave = (newValue)=>{  
   const newWorks = newValue.map(value=>({name:value}))
   updateWorks(newWorks)
@@ -30,7 +29,7 @@ const handleEditChange = (e,index) => {
 };
  return(
   <div className="todo-list">
-      {works.map(({name}, index)=>
+      {works.map(({id,name}, index)=>
            index === editingIndex ? (
             <div key={index} className="d-flex justify-content-between align-items-center gap-2 my-3 border px-2 py-2">
               <input type="text" className="form-control" value={editValue[index]} onInput={(e)=>handleEditChange(e, index)} />
@@ -41,7 +40,7 @@ const handleEditChange = (e,index) => {
                 <span className="fs-5">{name}</span>
                 <div className="action d-flex gap-2">
                   <button className="btn btn-primary change-btn"onClick={()=>setEditingIndex(index)}>Change</button>
-                  <button className="btn btn-danger delete-btn" onClick={()=>handleDelete(index)}>Del</button>
+                  <button className="btn btn-danger delete-btn" onClick={()=>handleDelete(id)}>Del</button>
                 </div>
               </div>
             )

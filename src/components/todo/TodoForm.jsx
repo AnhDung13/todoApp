@@ -1,29 +1,31 @@
-import React, {useRef} from "react"
-import { useTask } from "../context/Task";
+import React, {useRef, useState} from "react"
+import { useTaskContext } from "../context/Task";
 import "bootstrap/dist/css/bootstrap.min.css"
 import TodoList from "./TodoList";
 function TodoForm(){
-  const {updateWorks} = useTask();
-
-  const inputRef = useRef(null);
-  
+  const inputRef = useRef()
+  const {updateWorks} = useTaskContext();
+  const [value, setValue] = useState('')
+  const [id, setId] = useState(1)
   const handleAdd = (e)=>{
     e.preventDefault();
-    const value = inputRef.current.value.trim()
     if(!value){
         return
     }
-    updateWorks(prev=>[...prev, {name: value}])
-    inputRef.current.value = "";
-    inputRef.current.focus();
+    updateWorks(prev=>[...prev, {id: id, name: value}])
+    setValue('')
+    setId(id+1)
+    inputRef.current.focus()
   }
     return(
-      <div className="w-50 mx-auto bg-white p-4 ">
-        <form className="add-form d-flex gap-2 mb-4" onSubmit={handleAdd}>
-            <input ref={inputRef} type="text" className="form-control border border-primary"/>
-            <button type="submit" className="btn btn-success px-4 py-2" >Add</button>
-        </form>
-        <TodoList/>
+      <div className="row">
+        <div className="col-8 offset-2 col-xl-6 offset-xl-3 bg-white p-4 ">
+          <form className="add-form d-flex gap-2 mb-4" onSubmit={handleAdd}>
+              <input ref={inputRef} value={value} type="text" className="form-control border border-primary" onChange={(e)=>setValue(e.target.value)}/>
+              <button type="submit" className="btn btn-success px-4 py-2" >Add</button>
+          </form>
+          <TodoList/>
+       </div>
       </div>
     );
   }
